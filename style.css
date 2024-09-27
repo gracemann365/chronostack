@@ -4,10 +4,8 @@ body {
   margin: 0;
   padding: 40px;
   color: #333; /* General text color */
-}
-body {
   font-family: "Poppins", sans-serif;
-
+}
 
 h1 {
   text-align: center;
@@ -133,6 +131,7 @@ tbody tr:hover {
   border-color: #8d99ae; /* Change border color on focus */
   outline: none; /* Remove default outline */
 }
+
 /* Footer Styles */
 .footer {
   text-align: center;
@@ -140,6 +139,12 @@ tbody tr:hover {
   font-size: 14px;
   color: #666; /* Light gray for footer text */
   padding: 20px;
+}
+
+.break td {
+  background-color: rgb(255, 11, 11);
+  font-weight: bold;
+  color: white;
 }
 
 /* Responsive Design */
@@ -155,41 +160,4 @@ tbody tr:hover {
   td {
     font-size: 14px;
   }
-}
-
-#breaks-table {
-  width: 90%;
-  max-width: 800px;
-  margin: 40px auto;
-  border-collapse: collapse;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-#breaks-table th,
-#breaks-table td {
-  padding: 15px;
-  text-align: center;
-  border: 1px solid #e5e5e5;
-  font-size: 16px;
-}
-
-#breaks-table th {
-  background-color: #2b2d42;
-  color: white;
-  font-weight: bold;
-  letter-spacing: 1px;
-}
-
-#breaks-table tbody tr {
-  background-color: #f8f9fa; /* Default background */
-}
-
-#breaks-table tbody tr:nth-child(odd) {
-  background-color: #e9ecef; /* Alternating background */
-}
-
-#breaks-table tbody tr:hover {
-  background-color: #d1e7dd; /* Highlight on hover */
 }

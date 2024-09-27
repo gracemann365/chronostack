@@ -38,12 +38,32 @@ document.getElementById("calculate-btn").addEventListener("click", function () {
 
     const row = document.createElement("tr");
     row.innerHTML = `
-            <td>${i / 2 + 1}</td>
+            <td>${Math.floor(i / 2) + 1}</td>
             <td>${loginTime}</td>
             <td>${logoutTime}</td>
             <td>${workedDisplay}</td>
         `;
     tableBody.appendChild(row);
+
+    // Calculate and display the break after each session if it's not the last session
+    if (i + 2 < timeEntries.length) {
+      const nextLoginTime = timeEntries[i + 2];
+      const breakDuration = calculateBreakDuration(logoutTime, nextLoginTime);
+
+      if (breakDuration > 0) {
+        const breakHours = Math.floor(breakDuration / 60);
+        const breakMins = breakDuration % 60;
+
+        const breakRow = document.createElement("tr");
+        breakRow.classList.add("break"); // This adds the break class for styling
+        breakRow.innerHTML = `
+                <td>Break after Session ${Math.floor(i / 2) + 1}</td>
+                <td colspan="2">Break Time</td>
+                <td>${pad(breakHours)}:${pad(breakMins)}</td>
+            `;
+        tableBody.appendChild(breakRow);
+      }
+    }
   }
 
   // Display total worked hours
@@ -58,31 +78,38 @@ document.getElementById("calculate-btn").addEventListener("click", function () {
 function calculateWorkedMinutes(loginTime, logoutTime) {
   const loginDate = new Date(`01/01/2000 ${loginTime}`);
   const logoutDate = new Date(`01/01/2000 ${logoutTime}`);
-  return Math.floor((logoutDate - loginDate) / (1000 * 60)); // Difference in minutes
+  return Math.floor((logoutDate - loginDate) / 60000); // Convert milliseconds to minutes
 }
 
-// Helper function to pad numbers with leading zeros
-function pad(number) {
-  return number.toString().padStart(2, "0");
+// Function to calculate break duration between two times
+function calculateBreakDuration(logoutTime, nextLoginTime) {
+  const logoutDate = new Date(`01/01/2000 ${logoutTime}`);
+  const nextLoginDate = new Date(`01/01/2000 ${nextLoginTime}`);
+  return Math.floor((nextLoginDate - logoutDate) / 60000); // Convert milliseconds to minutes
 }
 
-// New function to calculate range total
+// Function to add leading zeros to single-digit numbers
+function pad(num) {
+  return String(num).padStart(2, "0");
+}
+
+// Event listener for range total calculation
 document
   .getElementById("calculate-range-btn")
   .addEventListener("click", function () {
-    const startSession =
-      parseInt(document.getElementById("start-session").value) || 0;
-    const endSession =
-      parseInt(document.getElementById("end-session").value) || 0;
+    const startSession = parseInt(
+      document.getElementById("start-session").value
+    );
+    const endSession = parseInt(document.getElementById("end-session").value);
 
     if (
+      isNaN(startSession) ||
+      isNaN(endSession) ||
+      startSession > endSession ||
       startSession < 1 ||
-      endSession < 1 ||
-      startSession > sessionData.length ||
-      endSession > sessionData.length ||
-      startSession > endSession
+      endSession > sessionData.length
     ) {
-      alert("Please enter a valid session range!");
+      alert("Invalid session range!");
       return;
     }
 
@@ -98,25 +125,3 @@ document
       rangeTotalHours
     )}:${pad(rangeTotalMins)}`;
   });
-
-// Example function to add breaks
-function addBreak(duration) {
-  const breaksTableBody = document
-    .getElementById("breaks-table")
-    .getElementsByTagName("tbody")[0];
-  const row = breaksTableBody.insertRow();
-
-  const breakCell = row.insertCell(0);
-  const durationCell = row.insertCell(1);
-
-  breakCell.innerText = `Break ${breaksTableBody.rows.length}`;
-  durationCell.innerText = duration;
-
-  // Optionally: Assign a random background color to each break row
-  const colors = ["#e9ecef", "#d1e7dd", "#cfe2f3", "#ffeeba"];
-  row.style.backgroundColor =
-    colors[breaksTableBody.rows.length % colors.length];
-}
-
-// Example usage:
-// addBreak("00:30"); // Call this function with the break duration when needed

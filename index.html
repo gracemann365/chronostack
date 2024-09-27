@@ -8,8 +8,7 @@
       href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap"
       rel="stylesheet"
     />
-
-    <title>Chronostacks®️</title>
+    <title>ChronoStacks®️</title>
   </head>
   <body>
     <h1>ChronoStacks®️ by David Grace</h1>
@@ -37,24 +36,26 @@
 
     <h3>Total Worked Hours: <span id="total-worked">00:00</span></h3>
 
-    <h2>Select Session Range</h2>
-
-    <!-- Grouping the session inputs in a div for better layout control -->
+    <h2>Select Specific Session Range</h2>
     <div class="session-input-container">
       <input
         type="number"
         id="start-session"
-        placeholder="Start Session"
+        placeholder="Start Session No:"
         min="1"
       />
-      <input type="number" id="end-session" placeholder="End Session" min="1" />
+      <input
+        type="number"
+        id="end-session"
+        placeholder="End Session  No:"
+        min="1"
+      />
     </div>
     <button id="calculate-range-btn">Calculate Range Total</button>
 
     <h3>
       Range Total Worked Hours: <span id="range-total-worked">00:00</span>
     </h3>
-
     <script src="script.js"></script>
   </body>
 </html>
