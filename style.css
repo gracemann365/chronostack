@@ -161,3 +161,16 @@ tbody tr:hover {
     font-size: 14px;
   }
 }
+
+#remaining-time {
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.8
+  ); /* Slightly transparent background */
+  border: 1px solid #ccc; /* Light border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px; /* Padding for better appearance */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}

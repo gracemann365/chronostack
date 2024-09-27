@@ -1,5 +1,62 @@
+// Store session data
 const sessionData = [];
 
+// Function to calculate worked minutes between login and logout times
+function calculateWorkedMinutes(loginTime, logoutTime) {
+  const loginDate = new Date(`1970-01-01T${convertTo24Hour(loginTime)}`);
+  const logoutDate = new Date(`1970-01-01T${convertTo24Hour(logoutTime)}`);
+  const diffInMillis = logoutDate - loginDate;
+
+  return Math.max(0, Math.floor(diffInMillis / 60000)); // Return 0 minutes if logout is before login
+}
+
+// Function to calculate break duration between two times
+function calculateBreakDuration(logoutTime, nextLoginTime) {
+  const logoutDate = new Date(`1970-01-01T${convertTo24Hour(logoutTime)}`);
+  const nextLoginDate = new Date(
+    `1970-01-01T${convertTo24Hour(nextLoginTime)}`
+  );
+  const diffInMillis = nextLoginDate - logoutDate;
+
+  return Math.max(0, Math.floor(diffInMillis / 60000)); // Return 0 minutes if next login is before logout
+}
+
+// Function to convert 12-hour time format to 24-hour time format
+function convertTo24Hour(time) {
+  const [timePart, modifier] = time.split(" ");
+  let [hours, minutes] = timePart.split(":");
+
+  if (hours === "12") {
+    hours = "00"; // Change 12 AM to 00
+  }
+
+  if (modifier === "PM") {
+    hours = parseInt(hours, 10) + 12; // Convert PM hours to 24-hour format
+  }
+
+  return `${pad(hours)}:${minutes}`; // Return in 24-hour format
+}
+
+// Function to pad numbers with leading zeros
+function pad(num) {
+  return num.toString().padStart(2, "0");
+}
+
+// Function to update remaining work time display
+function updateRemainingTime(totalWorkedMinutes) {
+  const totalWorkMinutes = 8 * 60; // 8 hours in minutes
+  const remainingMinutes = totalWorkMinutes - totalWorkedMinutes;
+
+  const remainingHours = Math.max(0, Math.floor(remainingMinutes / 60)); // Ensure hours don't go below 0
+  const remainingMins = Math.max(0, remainingMinutes % 60); // Ensure minutes don't go below 0
+
+  // Update total left display
+  document.getElementById("total-left").innerText = `${pad(
+    remainingHours
+  )}:${pad(remainingMins)}`;
+}
+
+// Event listener for calculate button
 document.getElementById("calculate-btn").addEventListener("click", function () {
   const input = document.getElementById("input-times").value.trim();
   if (!input) {
@@ -7,7 +64,7 @@ document.getElementById("calculate-btn").addEventListener("click", function () {
     return;
   }
 
-  // Use regex to match valid time formats and extract them
+  // Extract only time entries from the input
   const timeEntries = input.match(/([01]?[0-9]:[0-5][0-9]\s?(AM|PM))/gi);
 
   if (!timeEntries || timeEntries.length % 2 !== 0) {
@@ -25,10 +82,11 @@ document.getElementById("calculate-btn").addEventListener("click", function () {
     const loginTime = timeEntries[i];
     const logoutTime = timeEntries[i + 1];
 
+    // Calculate worked minutes
     const workedMinutes = calculateWorkedMinutes(loginTime, logoutTime);
     totalWorkedMinutes += workedMinutes;
 
-    // Store session data
+    // Store session data for display
     sessionData.push({ loginTime, logoutTime, workedMinutes });
 
     // Add row to table
@@ -72,26 +130,10 @@ document.getElementById("calculate-btn").addEventListener("click", function () {
   document.getElementById("total-worked").innerText = `${pad(totalHours)}:${pad(
     totalMins
   )}`;
+
+  // Update remaining work time display
+  updateRemainingTime(totalWorkedMinutes);
 });
-
-// Function to calculate the difference in minutes between two times
-function calculateWorkedMinutes(loginTime, logoutTime) {
-  const loginDate = new Date(`01/01/2000 ${loginTime}`);
-  const logoutDate = new Date(`01/01/2000 ${logoutTime}`);
-  return Math.floor((logoutDate - loginDate) / 60000); // Convert milliseconds to minutes
-}
-
-// Function to calculate break duration between two times
-function calculateBreakDuration(logoutTime, nextLoginTime) {
-  const logoutDate = new Date(`01/01/2000 ${logoutTime}`);
-  const nextLoginDate = new Date(`01/01/2000 ${nextLoginTime}`);
-  return Math.floor((nextLoginDate - logoutDate) / 60000); // Convert milliseconds to minutes
-}
-
-// Function to add leading zeros to single-digit numbers
-function pad(num) {
-  return String(num).padStart(2, "0");
-}
 
 // Event listener for range total calculation
 document
