@@ -1,5 +1,7 @@
 // Store session data
 const sessionData = [];
+let longestBreakDuration = 0;
+let longestBreakIndex = -1; // To track the index of the longest break
 
 // Function to calculate worked minutes between login and logout times
 function calculateWorkedMinutes(loginTime, logoutTime) {
@@ -74,6 +76,8 @@ document.getElementById("calculate-btn").addEventListener("click", function () {
 
   const tableBody = document.querySelector("#hours-table tbody");
   tableBody.innerHTML = ""; // Clear previous entries
+  sessionData.length = 0; // Clear previous session data
+  longestBreakDuration = 0; // Reset longest break tracking
 
   let totalWorkedMinutes = 0;
 
@@ -109,19 +113,31 @@ document.getElementById("calculate-btn").addEventListener("click", function () {
       const breakDuration = calculateBreakDuration(logoutTime, nextLoginTime);
 
       if (breakDuration > 0) {
+        // Track the longest break duration
+        if (breakDuration > longestBreakDuration) {
+          longestBreakDuration = breakDuration;
+          longestBreakIndex = Math.floor(i / 2) + 1; // Update the longest break index
+        }
+
         const breakHours = Math.floor(breakDuration / 60);
         const breakMins = breakDuration % 60;
 
         const breakRow = document.createElement("tr");
         breakRow.classList.add("break"); // This adds the break class for styling
         breakRow.innerHTML = `
-                <td>Break after Session ${Math.floor(i / 2) + 1}</td>
+                <td>Break${Math.floor(i / 2) + 1}</td>
                 <td colspan="2">Break Time</td>
                 <td>${pad(breakHours)}:${pad(breakMins)}</td>
             `;
         tableBody.appendChild(breakRow);
       }
     }
+  }
+
+  // After processing all breaks, change the label of the longest break to "LUNCH BREAK"
+  if (longestBreakIndex !== -1) {
+    const breakRows = tableBody.querySelectorAll("tr.break");
+    breakRows[longestBreakIndex - 1].children[1].innerText = "LUNCH BREAK";
   }
 
   // Display total worked hours
