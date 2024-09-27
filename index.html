@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Chronostack®️</title>
+  </head>
+  <body>
+    <h1>ChronoStack®️ by David Grace</h1>
+    <textarea
+      id="input-times"
+      rows="10"
+      cols="50"
+      placeholder="Enter login/logout times here..."
+    ></textarea>
+    <br />
+    <button id="calculate-btn">Calculate</button>
+
+    <h2>Session Details</h2>
+    <table id="hours-table">
+      <thead>
+        <tr>
+          <th>Session No.</th>
+          <th>Login Time</th>
+          <th>Logout Time</th>
+          <th>Worked Hours (HH:MM)</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <h3>Total Worked Hours: <span id="total-worked">00:00</span></h3>
+
+    <h2>Select Session Range</h2>
+    <input
+      type="number"
+      id="start-session"
+      placeholder="Start Session"
+      min="1"
+    />
+    <input type="number" id="end-session" placeholder="End Session" min="1" />
+    <button id="calculate-range-btn">Calculate Range Total</button>
+    <h3>
+      Range Total Worked Hours: <span id="range-total-worked">00:00</span>
+    </h3>
+
+    <script src="script.js"></script>
+  </body>
+</html>
