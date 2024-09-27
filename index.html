@@ -4,10 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <title>Chronostack®️</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>Chronostacks®️</title>
   </head>
   <body>
-    <h1>ChronoStack®️ by David Grace</h1>
+    <h1>ChronoStacks®️ by David Grace</h1>
     <textarea
       id="input-times"
       rows="10"
@@ -33,14 +38,19 @@
     <h3>Total Worked Hours: <span id="total-worked">00:00</span></h3>
 
     <h2>Select Session Range</h2>
-    <input
-      type="number"
-      id="start-session"
-      placeholder="Start Session"
-      min="1"
-    />
-    <input type="number" id="end-session" placeholder="End Session" min="1" />
+
+    <!-- Grouping the session inputs in a div for better layout control -->
+    <div class="session-input-container">
+      <input
+        type="number"
+        id="start-session"
+        placeholder="Start Session"
+        min="1"
+      />
+      <input type="number" id="end-session" placeholder="End Session" min="1" />
+    </div>
     <button id="calculate-range-btn">Calculate Range Total</button>
+
     <h3>
       Range Total Worked Hours: <span id="range-total-worked">00:00</span>
     </h3>

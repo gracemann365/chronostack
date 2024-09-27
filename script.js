@@ -98,3 +98,25 @@ document
       rangeTotalHours
     )}:${pad(rangeTotalMins)}`;
   });
+
+// Example function to add breaks
+function addBreak(duration) {
+  const breaksTableBody = document
+    .getElementById("breaks-table")
+    .getElementsByTagName("tbody")[0];
+  const row = breaksTableBody.insertRow();
+
+  const breakCell = row.insertCell(0);
+  const durationCell = row.insertCell(1);
+
+  breakCell.innerText = `Break ${breaksTableBody.rows.length}`;
+  durationCell.innerText = duration;
+
+  // Optionally: Assign a random background color to each break row
+  const colors = ["#e9ecef", "#d1e7dd", "#cfe2f3", "#ffeeba"];
+  row.style.backgroundColor =
+    colors[breaksTableBody.rows.length % colors.length];
+}
+
+// Example usage:
+// addBreak("00:30"); // Call this function with the break duration when needed

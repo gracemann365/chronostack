@@ -1,95 +1,195 @@
 /* General Styles */
 body {
-  font-family: "Arial", sans-serif;
-  background-color: #f4f4f9;
+  background-color: #f7f9fc; /* Light neutral background */
   margin: 0;
-  padding: 20px;
-  color: #333;
+  padding: 40px;
+  color: #333; /* General text color */
 }
+body {
+  font-family: "Poppins", sans-serif;
 
-/* Header Styles */
+
 h1 {
   text-align: center;
-  color: #4a4e69;
-  margin-bottom: 30px;
-  font-size: 2.5em;
+  color: #1c3d71; /* Dark Blue for headers */
+  font-size: 3em;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+h2 {
+  text-align: center;
+  color: #1f2b44; /* Slightly darker tone for section headers */
+  margin-top: 40px;
+  font-size: 1.8em;
+  letter-spacing: 0.5px;
+}
+
+h3 {
+  text-align: center;
+  color: #627494; /* Soft mid-tone gray-blue for subheaders */
+  font-size: 1.6em;
+  margin-top: 20px;
 }
 
 /* Textarea Styles */
 textarea {
-  width: 100%;
-  max-width: 600px;
-  height: 150px;
-  margin-bottom: 20px;
+  display: block;
+  width: 90%;
+  max-width: 700px;
+  margin: 0 auto;
   padding: 15px;
-  border: 2px solid #4a4e69;
-  border-radius: 8px;
-  resize: none;
-  font-size: 16px;
   font-family: "Courier New", Courier, monospace;
+  font-size: 16px;
+  border: 2px solid #1c3d71; /* Dark blue for borders */
+  border-radius: 8px;
+  background-color: #c4c3c88f;
+  resize: none;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: border-color 0.3s;
+  transition: border-color 0.3s ease;
 }
 
 textarea:focus {
-  border-color: #22223b;
+  border-color: #8d99ae; /* Light blue focus border */
   outline: none;
 }
 
 /* Button Styles */
 button {
-  padding: 12px 20px;
-  background-color: #4a4e69;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  display: block;
+  width: 200px;
+  margin: 20px auto;
+  padding: 12px;
   font-size: 16px;
+  color: white;
+  background-color: #1c3d71; /* Primary dark blue button */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s, transform 0.2s;
 }
 
 button:hover {
-  background-color: #22223b;
+  background-color: #2f80ed; /* Light blue hover effect */
   transform: translateY(-2px);
 }
 
 /* Table Styles */
 table {
-  width: 100%;
-  max-width: 600px;
-  margin: 20px auto;
+  width: 90%;
+  max-width: 800px;
+  margin: 40px auto;
   border-collapse: collapse;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 th,
 td {
-  border: 1px solid #e5e5e5;
-  padding: 12px;
+  padding: 15px;
   text-align: center;
+  border: 1px solid #e5e5e5;
+  font-size: 16px;
 }
 
 th {
-  background-color: #4a4e69;
+  background-color: #1c3d71; /* Dark blue for table headers */
   color: white;
   font-weight: bold;
+  letter-spacing: 1px;
+}
+
+td {
+  background-color: #edf2f4; /* Light gray-blue for table cells */
 }
 
 tbody tr:nth-child(even) {
-  background-color: #f8f8f8;
+  background-color: #f8f9fa; /* Light neutral for alternating rows */
 }
 
 tbody tr:hover {
-  background-color: #eaeaea;
+  background-color: #e9ecef; /* Light hover effect */
 }
 
+/* Session Input Container Styles */
+.session-input-container {
+  display: flex; /* Use Flexbox for layout */
+  justify-content: center; /* Center the input fields */
+  margin: 20px 0; /* Add vertical spacing */
+}
+
+.session-input-container input {
+  width: 120px; /* Set a consistent width for inputs */
+  margin: 0 10px; /* Add spacing between inputs */
+  padding: 10px; /* Add padding for better touch targets */
+  border: 2px solid #2b2d42; /* Input border color */
+  border-radius: 5px; /* Rounded corners */
+  text-align: center; /* Center the text */
+}
+
+.session-input-container input:focus {
+  border-color: #8d99ae; /* Change border color on focus */
+  outline: none; /* Remove default outline */
+}
 /* Footer Styles */
 .footer {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 50px;
   font-size: 14px;
-  color: #666;
+  color: #666; /* Light gray for footer text */
+  padding: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  textarea,
+  table,
+  input[type="number"],
+  button {
+    width: 100%;
+  }
+
+  th,
+  td {
+    font-size: 14px;
+  }
+}
+
+#breaks-table {
+  width: 90%;
+  max-width: 800px;
+  margin: 40px auto;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#breaks-table th,
+#breaks-table td {
+  padding: 15px;
+  text-align: center;
+  border: 1px solid #e5e5e5;
+  font-size: 16px;
+}
+
+#breaks-table th {
+  background-color: #2b2d42;
+  color: white;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+#breaks-table tbody tr {
+  background-color: #f8f9fa; /* Default background */
+}
+
+#breaks-table tbody tr:nth-child(odd) {
+  background-color: #e9ecef; /* Alternating background */
+}
+
+#breaks-table tbody tr:hover {
+  background-color: #d1e7dd; /* Highlight on hover */
 }
